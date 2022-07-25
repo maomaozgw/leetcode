@@ -49,9 +49,6 @@ func searchRange(nums []int, target int) []int {
 }
 
 func binarySearch(nums []int, target int, left, right int) int {
-	if right-left < 1 {
-		return notFound
-	}
 	middle := left + (right-left)/2
 	if middle == left {
 		if nums[middle] == target {
