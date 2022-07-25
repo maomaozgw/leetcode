@@ -1,6 +1,6 @@
 package p86
 
-import "code.byted.org/zhaoguowei/leetcode/structures/listnode"
+import "github.com/maomaozgw/leetcode/structures/listnode"
 
 type ListNode = listnode.G[int]
 

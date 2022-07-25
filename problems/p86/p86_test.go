@@ -1,8 +1,9 @@
 package p86
 
 import (
-	"code.byted.org/zhaoguowei/leetcode/structures/listnode"
 	"testing"
+
+	"github.com/maomaozgw/leetcode/structures/listnode"
 )
 
 func Test_partition(t *testing.T) {

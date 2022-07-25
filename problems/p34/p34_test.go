@@ -39,6 +39,22 @@ func Test_searchRange(t *testing.T) {
 			},
 			want: []int{-1, -1},
 		},
+		{
+			name: "wa 1",
+			args: args{
+				nums:   []int{1},
+				target: 1,
+			},
+			want: []int{0, 0},
+		},
+		{
+			name: "wa 2",
+			args: args{
+				nums:   []int{1, 4},
+				target: 4,
+			},
+			want: []int{1, 1},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

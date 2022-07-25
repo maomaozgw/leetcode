@@ -1,7 +1,7 @@
 package p92
 
 import (
-	"code.byted.org/zhaoguowei/leetcode/structures/listnode"
+	"github.com/maomaozgw/leetcode/structures/listnode"
 )
 
 type ListNode = listnode.G[int]

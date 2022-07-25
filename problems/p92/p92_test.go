@@ -1,8 +1,9 @@
 package p92
 
 import (
-	"code.byted.org/zhaoguowei/leetcode/structures/listnode"
 	"testing"
+
+	"github.com/maomaozgw/leetcode/structures/listnode"
 )
 
 func Test_reverseBetween(t *testing.T) {
