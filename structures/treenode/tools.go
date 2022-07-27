@@ -5,6 +5,22 @@ import (
 	"github.com/disiqueira/gotree"
 )
 
+func Equal[T comparable](one *BinaryTree[T], another *BinaryTree[T]) bool {
+	if one == nil && another == nil {
+		return true
+	} else if one == nil || another == nil {
+		return false
+	}
+	if one.Val != another.Val {
+		return false
+	}
+	if left := Equal(one.Left, another.Left); !left {
+		return false
+	}
+
+	return Equal(one.Right, another.Right)
+}
+
 func DeepIter[T comparable](root *BinaryTree[T], callFunc func(node *BinaryTree[T]) bool) bool {
 	willContinue := callFunc(root)
 	if !willContinue {
