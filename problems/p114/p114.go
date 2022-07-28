@@ -1,7 +1,8 @@
+// https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
+
 package p114
 
 import (
-	"fmt"
 	"github.com/maomaozgw/leetcode/structures/treenode"
 )
 
@@ -12,7 +13,6 @@ func flatten(root *TreeNode) {
 
 	current := root
 	for _, node := range s {
-		fmt.Println(node.Val)
 		current.Left = nil
 		current.Right = node
 		current = node

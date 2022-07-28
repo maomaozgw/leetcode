@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/long-pressed-name/
+
 package p925
 
 func isLongPressedName(name string, typed string) bool {
