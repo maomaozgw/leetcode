@@ -41,6 +41,17 @@ func DeepIter[T comparable](root *BinaryTree[T], callFunc func(node *BinaryTree[
 	return true
 }
 
+func String[T comparable](root *BinaryTree[T]) string {
+
+	if root == nil {
+		return ""
+	}
+
+	node := gotree.New(fmt.Sprintf("%v", root.Val))
+	buildTree(node, root)
+	return node.Print()
+}
+
 func Print[T comparable](root *BinaryTree[T]) {
 
 	if root == nil {

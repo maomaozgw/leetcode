@@ -15,36 +15,29 @@ func addOneRow(root *TreeNode, val int, depth int) *TreeNode {
 		return node
 	}
 	depth--
-	targetNodes := findNodesByDepth(root, depth)
-	for _, node := range targetNodes {
-		if node == nil {
-			continue
-		}
-		tmpLeft, tmpRight := node.Left, node.Right
-		node.Left = &TreeNode{
-			Val:  val,
-			Left: tmpLeft,
-		}
-		node.Right = &TreeNode{
-			Val:   val,
-			Right: tmpRight,
-		}
-
-	}
+	findAndAddByDepth(root, val, depth)
 	return root
 }
 
-func findNodesByDepth(root *TreeNode, depth int) []*TreeNode {
-	depth--
-	if depth == 0 {
-		return []*TreeNode{root}
+func findAndAddByDepth(root *TreeNode, val int, depth int) {
+
+	if depth == 1 {
+		tmpLeft, tmpRight := root.Left, root.Right
+		root.Left = &TreeNode{
+			Val:  val,
+			Left: tmpLeft,
+		}
+		root.Right = &TreeNode{
+			Val:   val,
+			Right: tmpRight,
+		}
+		return
 	}
-	var result []*TreeNode
+	depth--
 	if root.Left != nil {
-		result = append(result, findNodesByDepth(root.Left, depth)...)
+		findAndAddByDepth(root.Left, val, depth)
 	}
 	if root.Right != nil {
-		result = append(result, findNodesByDepth(root.Right, depth)...)
+		findAndAddByDepth(root.Right, val, depth)
 	}
-	return result
 }
