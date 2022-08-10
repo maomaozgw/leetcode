@@ -11,48 +11,26 @@ type TreeNode = treenode.BinaryTree[int]
 type ListNode = listnode.G[int]
 
 func sortedListToBST(head *ListNode) *TreeNode {
-	var nodes []int
-	current := head
-	for current.Next != nil {
-		nodes = append(nodes, current.Val)
-		current = current.Next
-	}
-	nodes = append(nodes, current.Val)
-	if len(nodes) == 0 {
-		return nil
-	}
-	return sortedArrayToBST(nodes)
+	return buildTree(head, nil)
 }
 
-func sortedArrayToBST(nums []int) *TreeNode {
-	if len(nums) == 1 {
-		return &TreeNode{Val: nums[0]}
-	} else if len(nums) == 2 {
-		return &TreeNode{
-			Val: nums[1],
-			Left: &TreeNode{
-				Val: nums[0],
-			},
-		}
-	} else if len(nums) == 3 {
-		return &TreeNode{
-			Val: nums[1],
-			Left: &TreeNode{
-				Val: nums[0],
-			},
-			Right: &TreeNode{
-				Val: nums[2],
-			},
-		}
+func buildTree(start, end *ListNode) *TreeNode {
+	if start == end {
+		return nil
 	}
-	mid := len(nums) / 2
-	root := &TreeNode{
-		Val:   nums[mid],
-		Left:  nil,
-		Right: nil,
-	}
-	root.Left = sortedArrayToBST(nums[:mid])
-	root.Right = sortedArrayToBST(nums[mid+1:])
+	var oneStep = start
+	var twoStep = start
 
+	for oneStep != end && twoStep != end && twoStep.Next != end {
+		oneStep = oneStep.Next
+		twoStep = twoStep.Next.Next
+	}
+	root := &TreeNode{
+		Val: oneStep.Val,
+	}
+	// start -> Middle
+	root.Left = buildTree(start, oneStep)
+	// Middle -> End
+	root.Right = buildTree(oneStep.Next, end)
 	return root
 }
