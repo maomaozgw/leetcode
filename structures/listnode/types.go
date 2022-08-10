@@ -7,9 +7,8 @@ type I[T comparable] interface {
 
 // G is Generic Linked List Node
 type G[T comparable] struct {
-	I[T]
-	V T
-	N *G[T]
+	Val  T
+	Next *G[T]
 }
 
 func NewG[T comparable](values ...T) (head *G[T]) {
@@ -17,16 +16,16 @@ func NewG[T comparable](values ...T) (head *G[T]) {
 		return nil
 	}
 	head = &G[T]{
-		V: values[0],
-		N: nil,
+		Val:  values[0],
+		Next: nil,
 	}
 	current := head
 	for i := 1; i < len(values); i++ {
-		current.N = &G[T]{
-			V: values[i],
-			N: nil,
+		current.Next = &G[T]{
+			Val:  values[i],
+			Next: nil,
 		}
-		current = current.N
+		current = current.Next
 	}
 	return head
 }

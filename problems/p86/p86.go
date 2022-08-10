@@ -14,9 +14,9 @@ func partition(head *ListNode, x int) *ListNode {
 	)
 
 	for current != nil {
-		if current.V < x {
+		if current.Val < x {
 			if p1 != nil {
-				p1.N = current
+				p1.Next = current
 				p1 = current
 			} else {
 				p1Head = current
@@ -24,19 +24,19 @@ func partition(head *ListNode, x int) *ListNode {
 			}
 		} else {
 			if p2 != nil {
-				p2.N = current
+				p2.Next = current
 				p2 = current
 			} else {
 				p2Head = current
 				p2 = current
 			}
 		}
-		current = current.N
+		current = current.Next
 	}
 	if p1 != nil {
-		p1.N = p2Head
+		p1.Next = p2Head
 		if p2 != nil {
-			p2.N = nil
+			p2.Next = nil
 		}
 		return p1Head
 	}
