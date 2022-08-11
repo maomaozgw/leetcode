@@ -1,9 +1,19 @@
 package treenode
 
+import "github.com/maomaozgw/leetcode/structures/tools"
+
 type BinaryTree[T comparable] struct {
 	Val   T
 	Left  *BinaryTree[T]
 	Right *BinaryTree[T]
+}
+
+func NewFullBinaryTree[T comparable](values ...T) *BinaryTree[T] {
+	var ptrVals []*T
+	for idx := range values {
+		ptrVals = append(ptrVals, tools.Ptr[T](values[idx]))
+	}
+	return NewBinaryTree(ptrVals...)
 }
 
 func NewBinaryTree[T comparable](values ...*T) *BinaryTree[T] {
