@@ -2,28 +2,33 @@
 
 package p871
 
+import (
+	"github.com/emirpasic/gods/trees/binaryheap"
+	"github.com/emirpasic/gods/utils"
+)
+
 func minRefuelStops(target int, startFuel int, stations [][]int) int {
-	l := len(stations)
-	var dp = make([]int, l+1)
-	dp[0] = startFuel
-	for i := 0; i < l; i++ {
-		for j := i; j >= 0; j-- {
-			if dp[j] < stations[i][0] {
-				continue
+	fuelCnt := 0
+	currentFuel := startFuel
+	prevPos := 0
+	stations = append(stations, []int{target, 100})
+	heap := binaryheap.NewWith(func(a, b interface{}) int {
+		return -utils.IntComparator(a, b)
+	})
+
+	for i := 0; i < len(stations); i++ {
+		currentFuel -= stations[i][0] - prevPos
+		for currentFuel < 0 {
+			maxFuel, ok := heap.Pop()
+			if !ok {
+				return -1
 			}
-			tmp := dp[j] + stations[i][1]
-			if dp[j+1] < tmp {
-				dp[j+1] = tmp
-			}
+			fuelCnt++
+			currentFuel += maxFuel.(int)
 		}
-		if stations[i][0] > target {
-			break
-		}
+		heap.Push(stations[i][1])
+		prevPos = stations[i][0]
 	}
-	for i := 0; i < l+1; i++ {
-		if dp[i] >= target {
-			return i
-		}
-	}
-	return -1
+
+	return fuelCnt
 }
