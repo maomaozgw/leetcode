@@ -15,32 +15,44 @@ func movesToStamp(stamp string, target string) []int {
 	maskByte := []byte("?")
 	replace := bytes.Repeat(maskByte, l)
 	tb := []byte(target)
-	sb := []byte(stamp)
-	tmp := []byte(stamp)
+	canMatch := func(pos int) int {
+		cnt := 0
+		for i := 0; i < l; i++ {
+			c := tb[i+pos]
+			if c == '?' {
+				continue
+			}
+			if c != stamp[i] {
+				return -1
+			}
+			cnt++
+		}
+		return cnt
+	}
+	posMatched := make([]bool, n)
 	for {
 		hasMatch := false
-		for i := l; i > 0; i-- {
-			for j := 0; j <= l-i; j++ {
-				copy(tmp[:j], replace)
-				copy(tmp[j:j+i], sb[j:j+i])
-				copy(tmp[j+i:], replace)
-				idx := bytes.Index(tb, tmp)
-				for idx != -1 {
-					hasMatch = true
-					maskLength += i
-					copy(tb[idx:], replace)
-					result = append(result, idx)
-					idx = bytes.Index(tb, tmp)
+		for i := 0; i < n-l+1; i++ {
+			if posMatched[i] {
+				continue
+			}
+			matchCnt := canMatch(i)
+			if matchCnt <= 0 {
+				continue
+			}
+			hasMatch = true
+			posMatched[i] = true
+			copy(tb[i:], replace)
+			result = append(result, i)
+			maskLength += matchCnt
+			if maskLength == n {
+				for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
+					result[i], result[j] = result[j], result[i]
 				}
-				if maskLength == n {
-					for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
-						result[i], result[j] = result[j], result[i]
-					}
-					return result
-				}
-				if len(result) > maxRound {
-					return nil
-				}
+				return result
+			}
+			if len(result) > maxRound {
+				return nil
 			}
 		}
 		if !hasMatch {
