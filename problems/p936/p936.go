@@ -3,7 +3,7 @@
 package p936
 
 import (
-	"strings"
+	"bytes"
 )
 
 func movesToStamp(stamp string, target string) []int {
@@ -12,19 +12,25 @@ func movesToStamp(stamp string, target string) []int {
 	maskLength := 0
 	n := len(target)
 	maxRound := n * 10
-	replace := strings.Repeat("?", l)
+	maskByte := []byte("?")
+	replace := bytes.Repeat(maskByte, l)
+	tb := []byte(target)
+	sb := []byte(stamp)
+	tmp := []byte(stamp)
 	for {
 		hasMatch := false
 		for i := l; i > 0; i-- {
 			for j := 0; j <= l-i; j++ {
-				tmp := strings.Repeat("?", j) + stamp[j:j+i] + strings.Repeat("?", l-i-j)
-				idx := strings.Index(target, tmp)
+				copy(tmp[:j], replace)
+				copy(tmp[j:j+i], sb[j:j+i])
+				copy(tmp[j+i:], replace)
+				idx := bytes.Index(tb, tmp)
 				for idx != -1 {
 					hasMatch = true
 					maskLength += i
-					target = strings.Replace(target, tmp, replace, 1)
+					copy(tb[idx:], replace)
 					result = append(result, idx)
-					idx = strings.Index(target, tmp)
+					idx = bytes.Index(tb, tmp)
 				}
 				if maskLength == n {
 					for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
