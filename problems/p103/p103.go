@@ -2,7 +2,9 @@
 
 package p103
 
-import "github.com/maomaozgw/leetcode/structures/treenode"
+import (
+	"github.com/maomaozgw/leetcode/structures/treenode"
+)
 
 type TreeNode = treenode.BinaryTree[int]
 
