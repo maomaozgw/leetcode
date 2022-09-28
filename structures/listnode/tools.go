@@ -10,6 +10,7 @@ func (g *G[T]) String() string {
 	var valueList []string
 	for c != nil {
 		valueList = append(valueList, fmt.Sprintf("%v", c.Val))
+		c = c.Next
 	}
 	return strings.Join(valueList, "->")
 }
