@@ -2,6 +2,7 @@ package treenode
 
 import (
 	"github.com/maomaozgw/leetcode/structures/tools"
+	"strings"
 )
 
 type BinaryTree[T comparable] struct {
@@ -16,6 +17,11 @@ func NewFullBinaryTree[T comparable](values ...T) *BinaryTree[T] {
 		ptrVals = append(ptrVals, tools.Ptr[T](values[idx]))
 	}
 	return NewBinaryTree(ptrVals...)
+}
+
+func NewBinaryTreeFromLeetCodeStr[T comparable](converter Converter[T], str string) *BinaryTree[T] {
+	strItems := strings.Split(str, ",")
+	return NewBinaryTreeFromString(converter, strItems...)
 }
 
 func NewBinaryTreeFromString[T comparable](convert Converter[T], values ...string) *BinaryTree[T] {
