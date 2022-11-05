@@ -1,7 +1,6 @@
 package tools
 
 import (
-	"strconv"
 	"strings"
 )
 
@@ -10,18 +9,18 @@ func Ptr[T comparable](val T) *T {
 	return &tmp
 }
 
-func NewGridFromStr(s string) [][]int {
+func NewGridFromStr[T any](convert func(string) (T, error), s string) [][]T {
 	const (
 		sep = ",["
 	)
 	ms := strings.Split(s, sep)
-	var result = make([][]int, len(ms))
+	var result = make([][]T, len(ms))
 	for idx, m := range ms {
 		ns := strings.Split(m, ",")
-		result[idx] = make([]int, len(ns))
+		result[idx] = make([]T, len(ns))
 		for ndx, n := range ns {
 			n = strings.Trim(n, "[]")
-			nv, err := strconv.Atoi(n)
+			nv, err := convert(n)
 			if err != nil {
 				panic(err)
 			}
