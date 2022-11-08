@@ -3,22 +3,18 @@
 package p1323
 
 func maximum69Number(num int) int {
-	var bytes []byte
-
+	var result = num
+	var scale = 1
+	var maxScale = 0
 	for num > 0 {
-		bytes = append(bytes, uint8(num%10))
+		current := num % 10
+		if current == 6 {
+			maxScale = scale
+		}
+		scale *= 10
 		num /= 10
 	}
 
-	var transferred = false
-
-	for i := len(bytes) - 1; i > -1; i-- {
-		if !transferred && bytes[i] == 6 {
-			bytes[i] = 9
-			transferred = true
-		}
-		num *= 10
-		num += int(bytes[i])
-	}
-	return num
+	result += 3 * maxScale
+	return result
 }
