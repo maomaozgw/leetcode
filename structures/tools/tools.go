@@ -1,12 +1,22 @@
 package tools
 
 import (
+	"fmt"
 	"strings"
 )
 
 func Ptr[T comparable](val T) *T {
 	tmp := val
 	return &tmp
+}
+
+func ByteConverter(s string) (byte, error) {
+	s = strings.Trim(s, "\"")
+	if len(s) != 1 {
+		return 0, fmt.Errorf("invalid input %s", s)
+	}
+	return s[0], nil
+
 }
 
 func NewGridFromStr[T any](convert func(string) (T, error), s string) [][]T {
@@ -19,7 +29,7 @@ func NewGridFromStr[T any](convert func(string) (T, error), s string) [][]T {
 		ns := strings.Split(m, ",")
 		result[idx] = make([]T, len(ns))
 		for ndx, n := range ns {
-			n = strings.Trim(n, "[]")
+			n = strings.Trim(n, "[]\n")
 			nv, err := convert(n)
 			if err != nil {
 				panic(err)
