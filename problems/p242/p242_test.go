@@ -21,7 +21,7 @@ func Test_isAnagram(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "Example 1",
+			name: "Example 2",
 			args: args{
 				s: "rat",
 				t: "cat",

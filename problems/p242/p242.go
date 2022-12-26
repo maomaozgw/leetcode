@@ -2,19 +2,23 @@
 
 package p242
 
+const (
+	startC = 'a'
+)
+
 func isAnagram(s string, t string) bool {
 	if len(s) != len(t) {
 		return false
 	}
-	sourceMap := map[rune]int{}
-	for _, r := range s {
-		sourceMap[r] += 1
+	var cSlice = make([]int, 26)
+
+	for i := range s {
+		cSlice[s[i]-startC]++
 	}
-	for _, r := range t {
-		sourceMap[r] -= 1
-	}
-	for _, c := range sourceMap {
-		if c != 0 {
+	for i := range t {
+		idx := t[i] - startC
+		cSlice[idx]--
+		if cSlice[idx] < 0 {
 			return false
 		}
 	}
