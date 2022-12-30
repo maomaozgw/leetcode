@@ -32,6 +32,17 @@ func (g *D[T]) Next() *D[T] {
 	return g.N
 }
 
+func (g *G[T]) Lookup(val T) *G[T] {
+	c := g
+	for c != nil {
+		if c.Val == val {
+			return c
+		}
+		c = c.Next
+	}
+	return nil
+}
+
 func Print[T comparable](head *G[T]) {
 	for head != nil {
 		fmt.Print(head.Val, " ")
