@@ -1,5 +1,3 @@
-//go:build easy
-
 // https://leetcode.com/problems/build-array-from-permutation/
 
 package p1920

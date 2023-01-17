@@ -1,8 +1,10 @@
 package p1293
 
 import (
-	"github.com/maomaozgw/leetcode/structures/tools"
+	"strconv"
 	"testing"
+
+	"github.com/maomaozgw/leetcode/structures/tools"
 )
 
 func Test_shortestPath(t *testing.T) {
@@ -18,7 +20,7 @@ func Test_shortestPath(t *testing.T) {
 		{
 			name: "Example 1",
 			args: args{
-				grid: tools.NewGridFromStr("[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]"),
+				grid: tools.NewGridFromStr(strconv.Atoi, "[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]"),
 				k:    1,
 			},
 			want: 6,
@@ -26,7 +28,7 @@ func Test_shortestPath(t *testing.T) {
 		{
 			name: "Example 2",
 			args: args{
-				grid: tools.NewGridFromStr("[0,1,1],[1,1,1],[1,0,0]"),
+				grid: tools.NewGridFromStr(strconv.Atoi, "[0,1,1],[1,1,1],[1,0,0]"),
 				k:    1,
 			},
 			want: -1,
