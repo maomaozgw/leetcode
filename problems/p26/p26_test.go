@@ -25,7 +25,7 @@ func Test_removeDuplicates(t *testing.T) {
 			args: args{
 				nums: []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4},
 			},
-			want:     4,
+			want:     5,
 			wantNums: []int{0, 1, 2, 3, 4},
 		},
 	}

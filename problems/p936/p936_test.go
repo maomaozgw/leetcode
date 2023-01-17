@@ -1,8 +1,10 @@
 package p936
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func Test_movesToStamp(t *testing.T) {
@@ -37,12 +39,14 @@ func Test_movesToStamp(t *testing.T) {
 				stamp:  "de",
 				target: "ddeddeddee",
 			},
-			want: []int{5, 2, 8, 6, 3, 0, 7, 4, 1},
+			want: []int{6, 3, 0, 8, 7, 4, 1},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := movesToStamp(tt.args.stamp, tt.args.target); !reflect.DeepEqual(got, tt.want) {
+			if got := movesToStamp(tt.args.stamp, tt.args.target); !cmp.Equal(got, tt.want, cmpopts.SortSlices(func(i, j int) bool {
+				return i < j
+			})) {
 				t.Errorf("movesToStamp() = %v, want %v", got, tt.want)
 			}
 		})

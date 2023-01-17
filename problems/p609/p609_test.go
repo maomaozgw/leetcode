@@ -1,10 +1,11 @@
 package p609
 
 import (
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
 	"strings"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func Test_findDuplicate(t *testing.T) {
@@ -35,7 +36,12 @@ func Test_findDuplicate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := findDuplicate(tt.args.paths); !cmp.Equal(got, tt.want, cmpopts.SortSlices(func(i, j string) bool { return strings.Compare(i, j) > 0 })) {
+			if got := findDuplicate(tt.args.paths); !cmp.Equal(got, tt.want, cmpopts.SortSlices(func(i, j []string) bool {
+				if len(i) == len(j) {
+					return strings.Compare(i[0], j[0]) < 0
+				}
+				return len(i) < len(j)
+			})) {
 				t.Errorf("findDuplicate() = %v, want %v", got, tt.want)
 			}
 		})

@@ -1,8 +1,10 @@
 package p967
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func Test_numsSameConsecDiff(t *testing.T) {
@@ -34,7 +36,9 @@ func Test_numsSameConsecDiff(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := numsSameConsecDiff(tt.args.n, tt.args.k); !reflect.DeepEqual(got, tt.want) {
+			if got := numsSameConsecDiff(tt.args.n, tt.args.k); !cmp.Equal(got, tt.want, cmpopts.SortSlices(func(i, j int) bool {
+				return i < j
+			})) {
 				t.Errorf("numsSameConsecDiff() = %v, want %v", got, tt.want)
 			}
 		})

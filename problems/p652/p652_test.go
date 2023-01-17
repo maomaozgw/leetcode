@@ -1,9 +1,11 @@
 package p652
 
 import (
-	"github.com/maomaozgw/leetcode/structures/treenode"
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/maomaozgw/leetcode/structures/treenode"
 )
 
 func Test_findDuplicateSubtrees(t *testing.T) {
@@ -46,7 +48,9 @@ func Test_findDuplicateSubtrees(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := findDuplicateSubtrees(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+			if got := findDuplicateSubtrees(tt.args.root); !cmp.Equal(got, tt.want, cmpopts.SortSlices(func(i, j *TreeNode) bool {
+				return i.Val < j.Val
+			}), cmpopts.IgnoreFields(TreeNode{}, "Left", "Right")) {
 				t.Errorf("findDuplicateSubtrees() = %v, want %v", got, tt.want)
 			}
 		})

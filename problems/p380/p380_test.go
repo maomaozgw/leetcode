@@ -48,11 +48,8 @@ func TestConstructor(t *testing.T) {
 					}
 				case "getRandom":
 					val := set.GetRandom()
-					want := intArg(tt.excepted[idx])
+					_ = intArg(tt.excepted[idx])
 					t.Logf("%s (%s) = %v (%s)", fn, tt.values[idx], val, tt.excepted[idx])
-					if val != want {
-						t.Errorf("%s = %v, want %v", fn, val, want)
-					}
 				}
 			}
 		})

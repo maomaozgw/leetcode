@@ -1,10 +1,11 @@
 package p102
 
 import (
-	"github.com/maomaozgw/leetcode/structures/tools"
-	"github.com/maomaozgw/leetcode/structures/treenode"
 	"reflect"
 	"testing"
+
+	"github.com/maomaozgw/leetcode/structures/tools"
+	"github.com/maomaozgw/leetcode/structures/treenode"
 )
 
 func Test_levelOrder(t *testing.T) {
@@ -43,6 +44,9 @@ func Test_levelOrder(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := levelOrder(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				if len(got) == 0 && len(tt.want) == 0 {
+					return
+				}
 				t.Errorf("levelOrder() = %v, want %v", got, tt.want)
 			}
 		})

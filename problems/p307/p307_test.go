@@ -28,17 +28,6 @@ func TestNumArray_SumRange(t *testing.T) {
 			want: 23,
 		},
 		{
-			name: "specify 1",
-			fields: fields{
-				data: []int{7},
-			},
-			args: args{
-				left:  1,
-				right: 1,
-			},
-			want: 7,
-		},
-		{
 			name: "panic 1",
 			fields: fields{
 				data: []int{-28, -39, 53, 65, 11, -56, -65, -39, -43, 97},

@@ -1,8 +1,10 @@
 package p30
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func Test_findSubstring(t *testing.T) {
@@ -52,7 +54,7 @@ func Test_findSubstring(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := findSubstring(tt.args.s, tt.args.words); !reflect.DeepEqual(got, tt.want) {
+			if got := findSubstring(tt.args.s, tt.args.words); !cmp.Equal(got, tt.want, cmpopts.EquateEmpty()) {
 				t.Errorf("findSubstring() = %v, want %v", got, tt.want)
 			}
 		})

@@ -1,10 +1,12 @@
 package p587
 
 import (
-	"github.com/maomaozgw/leetcode/structures/tools"
-	"reflect"
 	"strconv"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/maomaozgw/leetcode/structures/tools"
 )
 
 func Test_outerTrees(t *testing.T) {
@@ -33,7 +35,12 @@ func Test_outerTrees(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := outerTrees(tt.args.trees); !reflect.DeepEqual(got, tt.want) {
+			if got := outerTrees(tt.args.trees); !cmp.Equal(got, tt.want, cmpopts.SortSlices(func(i, j []int) bool {
+				if i[0] == j[0] {
+					return i[1] < j[1]
+				}
+				return i[0] < j[0]
+			})) {
 				t.Errorf("outerTrees() = %v, want %v", got, tt.want)
 			}
 		})
