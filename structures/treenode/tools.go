@@ -2,6 +2,7 @@ package treenode
 
 import (
 	"fmt"
+
 	"github.com/disiqueira/gotree"
 )
 
@@ -77,7 +78,7 @@ func buildTree[T comparable](node gotree.Tree, root *BinaryTree[T]) {
 func MustFirstByValue[T comparable](root *BinaryTree[T], val T) *BinaryTree[T] {
 	find, ok := FirstByValue(root, val)
 	if !ok {
-		panic(fmt.Sprintf("cannot find %s", val))
+		panic(fmt.Sprintf("cannot find %v", val))
 	}
 	return find
 }
