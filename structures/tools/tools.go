@@ -29,7 +29,7 @@ func NewGridFromStr[T any](convert func(string) (T, error), s string) [][]T {
 		ns := strings.Split(m, ",")
 		result[idx] = make([]T, len(ns))
 		for ndx, n := range ns {
-			n = strings.Trim(n, "[]\n")
+			n = strings.Trim(n, "[]\n\t")
 			if len(n) == 0 {
 				continue
 			}
