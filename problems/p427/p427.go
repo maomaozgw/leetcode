@@ -1,30 +1,49 @@
 package p427
 
-func findAllConcatenatedWordsInADict(words []string) []string {
-	var wordMap = map[string]struct{}{}
-	for idx := range words {
-		wordMap[words[idx]] = struct{}{}
-	}
-	var search func(word string) bool
-	search = func(word string) bool {
-		for i := 0; i < len(word); i++ {
-			if _, ok := wordMap[word[:i]]; !ok {
-				continue
-			}
-			if _, ok := wordMap[word[i:]]; ok {
-				return true
-			}
-			if search(word[i:]) {
-				return true
-			}
-		}
-		return false
-	}
-	var result []string
-	for idx := range words {
-		if search(words[idx]) {
-			result = append(result, words[idx])
+type Node struct {
+	Val         bool
+	IsLeaf      bool
+	TopLeft     *Node
+	TopRight    *Node
+	BottomLeft  *Node
+	BottomRight *Node
+}
+
+func construct(grid [][]int) *Node {
+	return constructPart(grid, 0, 0, len(grid)-1, len(grid)-1)
+}
+
+func constructPart(grid [][]int, leftX, leftY, rightX, rightY int) *Node {
+	if val, isLeaf := IsLeaf(grid, leftX, leftY, rightX, rightY); isLeaf {
+		return &Node{
+			Val:    val,
+			IsLeaf: isLeaf,
 		}
 	}
-	return result
+	node := &Node{
+		Val:    false,
+		IsLeaf: false,
+	}
+	centerX := (leftX + rightX) / 2
+	centerY := (leftY + rightY) / 2
+	node.TopLeft = constructPart(grid, leftX, leftY, centerX, centerY)
+	node.TopRight = constructPart(grid, leftX, centerY+1, centerX, rightY)
+	node.BottomLeft = constructPart(grid, centerX+1, leftY, rightX, centerY)
+	node.BottomRight = constructPart(grid, centerX+1, centerY+1, rightX, rightY)
+	return node
+}
+
+func IsLeaf(grid [][]int, leftX, leftY, rightX, rightY int) (bool, bool) {
+	firstVal := grid[leftX][leftY]
+	if rightX == leftX {
+		return firstVal == 1, true
+	}
+	for i := leftX; i <= rightX; i++ {
+		for j := leftY; j <= rightY; j++ {
+			if grid[i][j] != firstVal {
+				return false, false
+			}
+		}
+	}
+	return firstVal == 1, true
 }
