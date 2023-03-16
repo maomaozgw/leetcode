@@ -2,8 +2,6 @@
 
 package p34
 
-import "github.com/maomaozgw/leetcode/structures/array"
-
 const (
 	notFound = -1
 )
@@ -29,7 +27,7 @@ func searchRange(nums []int, target int) []int {
 	if nums[0] == target {
 		valueIndex = 0
 	} else {
-		valueIndex = array.BinarySearch(nums, target, 0, len(nums)-1)
+		valueIndex = binarySearch(nums, target, 0, len(nums)-1)
 	}
 
 	if valueIndex == notFound {
