@@ -21,15 +21,23 @@ func ByteConverter(s string) (byte, error) {
 
 func NewGridFromStr[T any](convert func(string) (T, error), s string) [][]T {
 	const (
-		sep = ",["
+		sep    = ",["
+		closet = "[]"
 	)
 	ms := strings.Split(s, sep)
 	var result = make([][]T, len(ms))
 	for idx, m := range ms {
-		ns := strings.Split(m, ",")
+		m = strings.TrimSpace(m)
+		if m == closet {
+			continue
+		}
+		ns := strings.Split(strings.Trim(m, closet), ",")
 		result[idx] = make([]T, len(ns))
 		for ndx, n := range ns {
-			n = strings.Trim(n, "[]\n\t")
+			if n == closet {
+				continue
+			}
+			n = strings.TrimSpace(strings.Trim(n, closet))
 			if len(n) == 0 {
 				continue
 			}
