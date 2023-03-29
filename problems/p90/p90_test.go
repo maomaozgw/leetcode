@@ -4,8 +4,6 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/maomaozgw/leetcode/structures/tools"
 )
 
@@ -35,7 +33,7 @@ func Test_subsetsWithDup(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := subsetsWithDup(tt.args.nums); !cmp.Equal(got, tt.want, cmpopts.EquateEmpty()) {
+			if got := subsetsWithDup(tt.args.nums); !tools.GridEqual[int](got, tt.want) {
 				t.Errorf("subsetsWithDup() = %v, want %v", got, tt.want)
 			}
 		})
