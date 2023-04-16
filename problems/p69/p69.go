@@ -8,20 +8,13 @@ func mySqrt(x int) int {
 	for left < right {
 		var mid = (left + right) / 2
 		var tmp = mid * mid
-		if mid == left {
-			if tmp > x {
-				return mid - 1
-			} else {
-				return mid
-			}
-		}
 		if tmp > x {
 			right = mid
 		} else if tmp == x {
 			return mid
 		} else {
-			left = mid
+			left = mid + 1
 		}
 	}
-	return left
+	return left - 1
 }
