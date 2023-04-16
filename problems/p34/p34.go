@@ -7,11 +7,9 @@ const (
 )
 
 func searchRange(nums []int, target int) []int {
-
 	var (
-		firstIndex = notFound
-		lastIndex  = notFound
-		valueIndex = notFound
+		firstIndex int
+		lastIndex  int
 	)
 	if len(nums) == 0 {
 		return []int{notFound, notFound}
@@ -24,46 +22,27 @@ func searchRange(nums []int, target int) []int {
 		return []int{notFound, notFound}
 	}
 
-	if nums[0] == target {
-		valueIndex = 0
-	} else {
-		valueIndex = binarySearch(nums, target, 0, len(nums)-1)
-	}
-
-	if valueIndex == notFound {
+	lastIndex = binarySearch(nums, 0, len(nums)-1, func(idx int) bool {
+		return nums[idx] >= target && (idx == len(nums)-1 || nums[idx+1] > target)
+	})
+	if nums[lastIndex] != target {
 		return []int{notFound, notFound}
 	}
-	for firstIndex = valueIndex; firstIndex >= 0; firstIndex-- {
-		if nums[firstIndex] != target {
-			break
-		}
-	}
-	firstIndex++
-	for lastIndex = valueIndex; lastIndex < len(nums); lastIndex++ {
-		if nums[lastIndex] != target {
-			break
-		}
-	}
-	lastIndex--
+	firstIndex = binarySearch(nums, 0, lastIndex, func(idx int) bool {
+		return nums[idx] >= target && (idx == 0 || nums[idx-1] <= target)
+	})
+
 	return []int{firstIndex, lastIndex}
 }
 
-func binarySearch(nums []int, target int, left, right int) int {
-	middle := left + (right-left)/2
-	if middle == left {
-		if nums[middle] == target {
-			return left
+func binarySearch(nums []int, left, right int, f func(idx int) bool) int {
+	for left < right {
+		var mid = (left + right) / 2
+		if f(mid) {
+			right = mid
+		} else {
+			left = mid + 1
 		}
-		if nums[right] == target {
-			return right
-		}
-		return notFound
 	}
-	if nums[middle] > target {
-		return binarySearch(nums, target, left, middle)
-	} else if nums[middle] == target {
-		return middle
-	} else {
-		return binarySearch(nums, target, middle, right)
-	}
+	return left
 }

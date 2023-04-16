@@ -12,22 +12,14 @@ func isBadVersion(version int) bool {
 }
 
 func firstBadVersion(n int) int {
-	return binarySearch(1, n)
-}
-
-func binarySearch(left, right int) int {
-	middle := (right + left) / 2
-	if middle == left {
-		if isBadVersion(middle) {
-			return middle
+	var left, right = 0, n
+	for left < right {
+		var mid = (left + right) / 2
+		if isBadVersion(mid) {
+			right = mid
+		} else {
+			left = mid + 1
 		}
-		if isBadVersion(right) {
-			return right
-		}
-		return -1
 	}
-	if isBadVersion(middle) {
-		return binarySearch(left, middle)
-	}
-	return binarySearch(middle, right)
+	return left
 }
