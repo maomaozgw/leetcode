@@ -1,9 +1,10 @@
 package p74
 
 import (
-	"github.com/maomaozgw/leetcode/structures/tools"
 	"strconv"
 	"testing"
+
+	"github.com/maomaozgw/leetcode/structures/tools"
 )
 
 func Test_searchMatrix(t *testing.T) {
@@ -31,6 +32,22 @@ func Test_searchMatrix(t *testing.T) {
 				target: 13,
 			},
 			want: false,
+		},
+		{
+			name: "UE 1",
+			args: args{
+				matrix: tools.NewGridFromStr(strconv.Atoi, "[1,3,5,7],[10,11,16,20],[23,30,34,60]"),
+				target: 60,
+			},
+			want: true,
+		},
+		{
+			name: "UE 2",
+			args: args{
+				matrix: tools.NewGridFromStr(strconv.Atoi, "[1,3,5,7],[10,11,16,20],[23,30,34,60]"),
+				target: 1,
+			},
+			want: true,
 		},
 	}
 	for _, tt := range tests {
