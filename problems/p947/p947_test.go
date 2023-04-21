@@ -1,9 +1,10 @@
 package p947
 
 import (
-	"github.com/maomaozgw/leetcode/structures/tools"
 	"strconv"
 	"testing"
+
+	"github.com/maomaozgw/leetcode/structures/tools"
 )
 
 func Test_removeStones(t *testing.T) {
