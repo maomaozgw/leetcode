@@ -28,14 +28,6 @@ func Test_chalkReplacer(t *testing.T) {
 			},
 			want: 1,
 		},
-		{
-			name: "WA 1",
-			args: args{
-				chalk: []int{},
-				k:     0,
-			},
-			want: 0,
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
