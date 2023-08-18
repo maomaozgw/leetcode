@@ -1,4 +1,5 @@
 from typing import List
+import unittest
 
 
 class Solution:
@@ -23,3 +24,22 @@ class Solution:
         if result > num_len:
             return 0
         return result
+
+
+class Test(unittest.TestCase):
+    def setUp(self) -> None:
+        self.s = Solution()
+
+    def test_example_1(self):
+        self.assertEqual(self.s.minSubArrayLen(7, [2, 3, 1, 2, 4, 3]), 2)
+
+    def test_example_2(self):
+        self.assertEqual(self.s.minSubArrayLen(4, [1, 4, 4]), 1)
+
+    def test_example_3(self):
+        self.assertEqual(self.s.minSubArrayLen(
+            11, [1, 1, 1, 1, 1, 1, 1, 1]), 0)
+
+
+if __name__ == "__main__":
+    unittest.main("p209")
