@@ -1,4 +1,5 @@
 from typing import List
+import unittest
 
 
 class Solution:
@@ -17,6 +18,14 @@ class Solution:
         return result
 
 
+class SolutionTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.s = Solution()
+
+    def test_example1(self):
+        self.assertEqual([[1, 2], [1, 3], [1, 4], [2, 3],
+                         [2, 4], [3, 4]], self.s.combine(4, 2))
+
+
 if __name__ == "__main__":
-    s = Solution()
-    print(s.combine(4, 2))
+    unittest.main("p77")
