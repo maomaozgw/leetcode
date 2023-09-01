@@ -4,17 +4,10 @@ import unittest
 
 class Solution:
     def countBits(self, n: int) -> List[int]:
-        result = []
-        for i in range(0, n + 1):
-            result.append(self.cntBits(i))
+        result = [0] * (n + 1)
+        for i in range(1, n + 1):
+            result[i] = result[i >> 1] + (i & 1)
         return result
-
-    def cntBits(self, n: int) -> int:
-        c = 0
-        while n != 0:
-            n = n & (n - 1)
-            c += 1
-        return c
 
 
 class Test(unittest.TestCase):
