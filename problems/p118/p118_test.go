@@ -27,7 +27,7 @@ func Test_generate(t *testing.T) {
 		{
 			name: "Example 2",
 			args: args{
-				numRows: 0,
+				numRows: 1,
 			},
 			want: [][]int{{1}},
 		},
