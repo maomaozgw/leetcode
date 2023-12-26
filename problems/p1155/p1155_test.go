@@ -40,6 +40,15 @@ func Test_numRollsToTarget(t *testing.T) {
 			},
 			want: 222616187,
 		},
+		{
+			name: "WA 1",
+			args: args{
+				n:      20,
+				k:      19,
+				target: 233,
+			},
+			want: 378846878,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
