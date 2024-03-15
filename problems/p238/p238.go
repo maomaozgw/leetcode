@@ -1,27 +1,15 @@
 package p238
 
 func productExceptSelf(nums []int) []int {
-	var total = 1
-	var zeroCnt = 0
-	for i := range nums {
-		if nums[i] == 0 {
-			zeroCnt++
-			continue
-		}
-		total *= nums[i]
+	var prefixProduct, suffixProduct int = 1, 1
+	res := make([]int, len(nums))
+	for i, num := range nums {
+		res[i] = int(prefixProduct)
+		prefixProduct *= num
 	}
-	var result = make([]int, len(nums))
-	if zeroCnt > 1 {
-		return result
+	for i := len(nums) - 1; i >= 0; i-- {
+		res[i] = res[i] * suffixProduct
+		suffixProduct *= nums[i]
 	}
-	for i := range nums {
-		if nums[i] == 0 {
-			result[i] = total
-			continue
-		}
-		if zeroCnt == 0 {
-			result[i] = total / nums[i]
-		}
-	}
-	return result
+	return res
 }
