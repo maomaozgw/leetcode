@@ -24,10 +24,3 @@ func checkValidString(s string) bool {
 	}
 	return leftMin == 0
 }
-
-func absDiff(x, y int) int {
-	if x > y {
-		return x - y
-	}
-	return y - x
-}

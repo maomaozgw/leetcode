@@ -60,6 +60,13 @@ func Test_checkValidString(t *testing.T) {
 			},
 			want: false,
 		},
+		{
+			name: "Example 7",
+			args: args{
+				s: "(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())",
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
