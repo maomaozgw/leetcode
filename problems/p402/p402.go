@@ -1,7 +1,7 @@
 package p402
 
 func removeKdigits(num string, k int) string {
-	if k > len(num) {
+	if k >= len(num) {
 		return "0"
 	}
 
