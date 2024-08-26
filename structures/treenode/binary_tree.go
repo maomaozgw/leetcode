@@ -1,8 +1,13 @@
 package treenode
 
 import (
-	"github.com/maomaozgw/leetcode/structures/tools"
 	"strings"
+
+	"github.com/maomaozgw/leetcode/structures/tools"
+)
+
+const (
+	NullStr = "null"
 )
 
 type BinaryTree[T comparable] struct {
@@ -25,14 +30,11 @@ func NewBinaryTreeFromLeetCodeStr[T comparable](converter Converter[T], str stri
 }
 
 func NewBinaryTreeFromString[T comparable](convert Converter[T], values ...string) *BinaryTree[T] {
-	const (
-		null = "null"
-	)
 	if len(values) == 0 {
 		return nil
 	}
 	rootVal := values[0]
-	if rootVal == null {
+	if rootVal == NullStr {
 		panic("root node cannot be null")
 	}
 	rootNode := &BinaryTree[T]{
@@ -48,7 +50,7 @@ func NewBinaryTreeFromString[T comparable](convert Converter[T], values ...strin
 			break
 		}
 		val := values[i]
-		if val != null {
+		if val != NullStr {
 			current.Left = &BinaryTree[T]{
 				Val: convert(val),
 			}
@@ -59,7 +61,7 @@ func NewBinaryTreeFromString[T comparable](convert Converter[T], values ...strin
 			break
 		}
 		val = values[i]
-		if val != null {
+		if val != NullStr {
 			current.Right = &BinaryTree[T]{
 				Val: convert(val),
 			}
