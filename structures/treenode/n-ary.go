@@ -43,6 +43,7 @@ func MustNewNAFromLeetCodeStr[T comparable](converter func(string) (T, error), s
 	var nodeCh = make(chan *NAtrTree[T], 10000)
 	nodeCh <- result
 	var currentNode = <-nodeCh
+	defer close(nodeCh)
 	for _, item := range strItems {
 		if item == NullStr {
 			currentNode = <-nodeCh
