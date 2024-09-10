@@ -17,8 +17,8 @@ func insertGreatestCommonDivisors(head *ListNode) *ListNode {
 }
 
 func gcd(a, b int) int {
-	if b == 0 {
-		return a
+	for b > 0 {
+		a, b = b, a%b
 	}
-	return gcd(b, a%b)
+	return a
 }
