@@ -18,7 +18,7 @@ func findScore(nums []int) int64 {
 			val: nums[i],
 			idx: i,
 		}
-		items = append(items, it)
+		items[i] = it
 	}
 	sort.Slice(items, func(i, j int) bool {
 		if items[i].val == items[j].val {
